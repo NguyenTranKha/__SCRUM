@@ -1,6 +1,9 @@
 //YWROBOT
 //Compatible with the Arduino IDE 1.0
 //Library version:1.1
+/////////////////////
+//WeMos D1 R2 mini///
+/////////////////////
 #include <Wire.h> 
 #include "DHT.h"
 #include <LiquidCrystal_I2C.h>
@@ -13,8 +16,8 @@ const String host = "airsniffer.org";
 const int httpsPort = 443;
 String url = "/api/pollutantvalues";
 WiFiClientSecure client;
-
 LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+
 const int DHTPIN = D0;       //Đọc dữ liệu từ DHT11 ở chân 2 trên mạch Arduino
 const int DHTTYPE = DHT11;  //Khai báo loại cảm biến, có 2 loại là DHT11 và DHT22
 DHT dht(DHTPIN, DHTTYPE);
@@ -52,13 +55,11 @@ void setup()
 
 void loop()
 {
-  
-  //arduino lcd.nobacklight
   int h = dht.readHumidity();    //Đọc độ ẩm
   int t = dht.readTemperature(); //Đọc nhiệt độ
   int f = dht.readTemperature(true);
   ad_value=analogRead(gas_ain);
-  ad_value = 0;
+  ad_value = 0;///set hard gas
 
   StaticJsonBuffer<1000> JSONbuffer;   //Declaring static JSON buffer
     JsonObject& JSgps = JSONbuffer.createObject();
@@ -82,10 +83,10 @@ void loop()
     JSgpsLocation["gpsLocation"] = JSgps;
     JSsum["source"] = JSgpsLocation;
 
-    JSTS11["value"] = (int)h;
-    JSTS22["value"] = (int)t;
-    JSTS33["value"] = (int)ad_value;
-    JSTS44["value"] = (int)ad_value;
+    JSTS11["value"] = h;
+    JSTS22["value"] = t;
+    JSTS33["value"] = ad_value;
+    JSTS44["value"] = ad_value;
     
     
     JSTS1["code"] = "HUM";
@@ -183,11 +184,11 @@ void loop()
    delay(3000);
    
 
-  Serial.print("Nhiet do: ");
+  /*Serial.print("Nhiet do: ");
   Serial.println(t);               //Xuất nhiệt độ
   Serial.print("Do am: ");
   Serial.println(h);               //Xuất độ ẩm
   
   Serial.println();                //Xuống hàng
-  delay(1000);                     //Đợi 1 giây
+  delay(1000);*/                   
 }

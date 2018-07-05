@@ -1,0 +1,6 @@
+ArduinoJSON version 5.12.0
+Set hard air gas\
+
+document reference:
+https://techtutorialsx.com/2017/01/08/esp8266-posting-json-data-to-a-flask-server-on-the-cloud/
+HTTP ! HTTPS
