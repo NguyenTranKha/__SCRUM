@@ -25,14 +25,6 @@ int ad_value;
 void setup()
 {
   Serial.begin(9600);
-  pinMode(gas_din,INPUT);
-  pinMode(gas_ain,INPUT);
-  WiFi.begin("TechMaster", "21112017");
-  while (WiFi.status() != WL_CONNECTED) {  //Wait for the WiFI connection completion
-    delay(500);
-    Serial.println("Waiting for connection");
-  }
-  
   dht.begin();         // Khởi động cảm biến
   lcd.init();                      // initialize the lcd 
   // Print a message to the LCD.
@@ -46,6 +38,15 @@ void setup()
   lcd.setCursor(2,1);
   lcd.print("Nine for One");
   delay(3000);
+  pinMode(gas_din,INPUT);
+  pinMode(gas_ain,INPUT);
+  WiFi.begin("TechMaster", "21112017");
+  while (WiFi.status() != WL_CONNECTED) {  //Wait for the WiFI connection completion
+    delay(500);
+    Serial.println("Waiting for connection");
+  }
+  
+  
 }
 
 
